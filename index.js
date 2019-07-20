@@ -64,7 +64,7 @@ app.get('/', function(req, res, next) {
     res.sendFile(__dirname + '/index.html');
 });
 app.get('/data', function(req, res, next) {
-    res.sendFile(__dirname + 'anal.json');
+    res.sendFile(__dirname + '/anal.json');
 });
 io.on('connection', function(client) {
     client.on('join', function(data) {
