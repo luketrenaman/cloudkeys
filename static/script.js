@@ -1,10 +1,16 @@
+function Note(data) {
+  this.data = data;
+  this.y = 0;
+  this.height = 0;
+}
 var socket = io.connect('http://172.20.10.3:3000/');
 let pixels = []
+lastTime = (new Date()).getTime()
 socket.on('connect', function(data) {
         socket.emit('join', 'Hello World from client');
         socket.on('messages',function(data){
-            draw()
-            pixels.push(data);
+            //draw()
+            pixels.push(new Note(data));
         console.log(data);
     })
     });
@@ -34,12 +40,16 @@ function draw() {
   //...drawing code...
   ctx.fillStyle = "#ff0000"
   pixels.forEach(function(note,index){
-    if(note[2] > 0){
-      console.log(winUnit*note[1]-19*winUnit)
-      ctx.fillRect(winUnit*note[1]-19*winUnit,window.innerHeight-100 - index*5, window.innerWidth/88, 5);
+    if(note.data[2] > 0){
+      currentTime = (new Date()).getTime();
+      delta = (currentTime - lastTime) / 1000;
+      note.y += delta
+      note.height += delta
+      console.log(winUnit*note.data[1]-19*winUnit)
+      ctx.fillRect(winUnit*note.data[1]-19*winUnit,window.innerHeight-100 - note.y, window.innerWidth/88, note.height);
       ctx.stroke();
     }
   })
+  requestAnimationFrame(draw)
 }
-draw()
-//requestAnimationFrame(draw)
+requestAnimationFrame(draw)
