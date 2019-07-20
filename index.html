@@ -12,36 +12,16 @@
         </form>
         <script   src="https://code.jquery.com/jquery-3.4.1.min.js"   integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="   crossorigin="anonymous"></script> 
 	<script src="https://cdn.socket.io/socket.io-1.7.2.js"></script>
-	<script src = "external-js/Tone.js"></script>
 
 	<script>
-var synth = new Tone.PolySynth(6, Tone.Synth).toMaster();
 
-function noteToFreq(note) {
-	    let a = 440; //frequency of A (coomon value is 440Hz)
-	        return (a / 32) * (2 ** ((note - 9) / 12));
-}
-	var socket = io.connect('http://192.168.190.239:3000/');
+	var socket = io.connect('http://172.20.10.3:3000/');
 socket.on('connect', function(data) {
 		socket.emit('join', 'Hello World from client');
 		socket.on('messages',function(data){
 		console.log(data);
-		if(data.split(",")[2] > 0 ){
-		synth.triggerAttack(noteToFreq(data.split(",")[1]));
-		} else{
-		synth.triggerRelease(noteToFreq(data.split(",")[1]));
-		console.log("release!")
-		}
 	})
 	});
-  
-
-        Tone.Buffer.on('load', function() {
-
-	 synth.toMaster();
-  synth.triggerAttack("A3");
-  console.log("A3!");
-	})
 	</script>
     </body>
 </html>
