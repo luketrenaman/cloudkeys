@@ -11,15 +11,5 @@
 	<canvas id="canvas"></canvas>   
 	<script src="analytics.js"></script>
     
-	<script>
-
-	var socket = io.connect('http://172.20.10.3:3000/');
-socket.on('connect', function(data) {
-		socket.emit('join', 'Hello World from client');
-		socket.on('messages',function(data){
-		console.log(data);
-	})
-	});
-	</script>
     </body>
 </html>

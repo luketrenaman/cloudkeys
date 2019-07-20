@@ -7,9 +7,10 @@ var data = JSON.parse(fs.readFileSync("midi2.json"));
 var anal = JSON.parse(fs.readFileSync("static/anal.json"));
 
 function poll() {
-    fs.writeFileSync("midi2.json", JSON.stringify(data))
+    fs.writeFileSync("static/midi2.json", JSON.stringify(data))
     fs.writeFileSync("static/anal.json",JSON.stringify(anal))
-    data = JSON.parse(fs.readFileSync("midi.json"))
+    data = JSON.parse(fs.readFileSync("midi2.json"))
+    anal = JSON.parse(fs.readFileSync("static/anal.json"));
     if (input.getPortCount() < 2) {
         //Set to false so that when the port count reaches 2, the else condition will not open the port multiple times
         if (enabled) {

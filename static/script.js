@@ -5,13 +5,27 @@ function Note(data) {
 }
 var socket = io.connect('http://172.20.10.3:3000/');
 let pixels = []
+let extra = []
 lastTime = (new Date()).getTime()
 socket.on('connect', function(data) {
         socket.emit('join', 'Hello World from client');
         socket.on('messages',function(data){
             //draw()
-            pixels.push(new Note(data));
-        console.log(data);
+            let dex = -1
+            if(data[0] != 176){
+              if(!pixels.some(function(note,index){
+                dex = index;
+                return note.data[1] === data[1];
+              })){
+                console.log("nosplice")
+                pixels.push(new Note(data));
+                //console.log(data);
+              } else{
+                console.log("splice")
+                extra.push(pixels[dex])
+                pixels.splice(dex,1);
+              }
+          }
     })
     });
     //0 2 3 5 8 10 11
@@ -39,17 +53,23 @@ function draw() {
   }
   //...drawing code...
   ctx.fillStyle = "#ff0000"
+  currentTime = (new Date()).getTime();
+  delta = (currentTime - lastTime) / 5;
   pixels.forEach(function(note,index){
     if(note.data[2] > 0){
-      currentTime = (new Date()).getTime();
-      delta = (currentTime - lastTime) / 1000;
       note.y += delta
       note.height += delta
-      console.log(winUnit*note.data[1]-19*winUnit)
-      ctx.fillRect(winUnit*note.data[1]-19*winUnit,window.innerHeight-100 - note.y, window.innerWidth/88, note.height);
+      //console.log(winUnit*note.data[1]-19*winUnit)
+      ctx.fillRect(winUnit*note.data[1]-21*winUnit,window.innerHeight-100 - note.y, window.innerWidth/88, note.height);
       ctx.stroke();
     }
   })
+  extra.forEach(function(note){
+    note.y += delta 
+    ctx.fillRect(winUnit*note.data[1]-21*winUnit,window.innerHeight-100 - note.y, window.innerWidth/88, note.height);
+    ctx.stroke();
+  })
+  lastTime = (new Date()).getTime()
   requestAnimationFrame(draw)
 }
 requestAnimationFrame(draw)
