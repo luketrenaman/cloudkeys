@@ -61,14 +61,21 @@ var io = require('socket.io')(server);
 //app.use(express.static(__dirname + '/tonejs-instruments'));
 var clients = []
 app.get('/', function(req, res, next) {
-    res.sendFile(__dirname + '/index.html');
+    res.sendFile(__dirname + '/static/index.html');
 });
 app.get('/data', function(req, res, next) {
-    res.sendFile(__dirname + '/anal.json');
+    res.sendFile(__dirname + '/static/anal.json');
+});
+app.get('/analytics', function(req, res, next) {
+    res.sendFile(__dirname + '/static/analytics.html');
+});
+app.get('/realtime', function(req, res, next) {
+    res.sendFile(__dirname + '/static/realtime.html');
 });
 io.on('connection', function(client) {
     client.on('join', function(data) {
 
+app.use(express.static('static'))
         console.log(data);
         clients.push(client);
         client.emit('messages', 'Hello from server');
