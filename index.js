@@ -4,11 +4,11 @@ var clients = [];
 var enabled = false;
 var input = new midi.input();
 var data = JSON.parse(fs.readFileSync("midi2.json"));
-var anal = JSON.parse(fs.readFileSync("anal.json"));
+var anal = JSON.parse(fs.readFileSync("static/anal.json"));
 
 function poll() {
     fs.writeFileSync("midi2.json", JSON.stringify(data))
-    fs.writeFileSync("anal.json",JSON.stringify(anal))
+    fs.writeFileSync("static/anal.json",JSON.stringify(anal))
     data = JSON.parse(fs.readFileSync("midi.json"))
     if (input.getPortCount() < 2) {
         //Set to false so that when the port count reaches 2, the else condition will not open the port multiple times
@@ -63,7 +63,7 @@ var clients = []
 app.get('/', function(req, res, next) {
     res.sendFile(__dirname + '/static/index.html');
 });
-app.get('/data', function(req, res, next) {
+app.get('/data.json', function(req, res, next) {
     res.sendFile(__dirname + '/static/anal.json');
 });
 app.get('/analytics', function(req, res, next) {

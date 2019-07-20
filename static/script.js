@@ -1,27 +1,23 @@
 var socket = io.connect('http://172.20.10.3:3000/');
+let pixels = []
 socket.on('connect', function(data) {
         socket.emit('join', 'Hello World from client');
         socket.on('messages',function(data){
-            let dex = -1;
-            if(sprites.some(function(sprite,index){
-                index = dex
-                return sprite[0] === data[1]
-            })){
-                sprites.splice()
-            }
-            sprites.push([data[1],data[2]])
+            draw()
+            pixels.push(data);
         console.log(data);
     })
     });
     //0 2 3 5 8 10 11
 function draw() {
+  let winUnit = window.innerWidth/89
     var canvas = document.getElementById("canvas");
     var ctx = canvas.getContext("2d")
+    ctx.clearRect(0,0,window.innerWidth,window.innerHeight)
   ctx.canvas.width  = window.innerWidth;
   ctx.canvas.height = window.innerHeight;
   sprites = [];
   for(i = 19; i <88+20;i++){
-    let winUnit = window.innerWidth/89
       if(i % 12 === 0 || i % 12 === 2 || i % 12 === 3 || i % 12 === 5 || i % 12 === 7 || i % 12 === 9 || i % 12 === 10){
         ctx.fillStyle = "#ffffff"
         ctx.fillRect(winUnit*i-19*winUnit,window.innerHeight-100, window.innerWidth/8, 100);
@@ -36,6 +32,14 @@ function draw() {
       ctx.stroke();
   }
   //...drawing code...
+  ctx.fillStyle = "#ff0000"
+  pixels.forEach(function(note,index){
+    if(note[2] > 0){
+      console.log(winUnit*note[1]-19*winUnit)
+      ctx.fillRect(winUnit*note[1]-19*winUnit,window.innerHeight-100 - index*5, window.innerWidth/88, 5);
+      ctx.stroke();
+    }
+  })
 }
 draw()
 //requestAnimationFrame(draw)

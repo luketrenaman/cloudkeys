@@ -1,8 +1,19 @@
+// PROCESS:
 // access contents of /data
 	// place contents of /data into an array
 	// find largest number in the array with the apply() method
 // var heat = Math.ceil()
 // for loop that draws each rectangle, but the fillStyle is rgb(255,0,0,Math.ceil(i/x)*255)
+
+// stats from the last server restart
+var basis;
+var url="http://172.20.10.3:3000/data.json;"
+
+$.getJSON(url, function(data) {
+	basis = data;
+}
+
+
 var socket = io.connect('http://172.20.10.3:3000/');
 socket.on('connect', function(data) {
         socket.emit('join', 'Hello World from client');
