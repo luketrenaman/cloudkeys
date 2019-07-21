@@ -82,6 +82,19 @@ app.get('/analytics', function(req, res) {
 }
 });
 
+// downloader and uploader files here
+app.get('/downloader', function(req, res) {
+    res.render('downloader'), {
+	number: num,
+}
+})
+
+
+
+// downloaders and uploader files end here
+
+
+
 //ejs.renderFile("static/analytics.html", {number: number},
 //	{delimiter: '%'}
 //);

@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+    <head>
+	<script src="https://cdn.socket.io/socket.io-1.7.2.js"></script>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"   integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="   crossorigin="anonymous"></script>     
+</head>
+    <body>
+	    <select id="selectSess">
+		<% for(var i=1; i<= number; i++) {%>
+		    <option value=<%= i - 1 %>>Session <%= i %></option>
+		<% } %>
+	    </select>
+	    <button onClick="downloadSess(document.getElementById('selectSess').value)">Download</button>
+           <a id="link" download>Click here after pressing 'Download'</a>
+	<script src="downloader.js"></script>
+    
+    </body>
+</html>
