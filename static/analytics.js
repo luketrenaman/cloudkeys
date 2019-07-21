@@ -32,18 +32,18 @@ socket.on('connect', function(data) {
 })
 	    // fill style for each notes
 		for (i=0;i<88;i++){
-		    transparency[i] = Math.ceil((live[i]/largest)*510);
+		    transparency[i] = Math.ceil((live[i]/largest)*largest*5);
 		}
+		    var canvas = document.getElementById("canvas");
+		    var ctx = canvas.getContext("2d")
 		
 	    // draw rectangle
 		function drawKeys() {
 			console.log("drawn again")
-		    var canvas = document.getElementById("canvas");
-		    var ctx = canvas.getContext("2d")
 		  ctx.canvas.width  = window.innerWidth;
 		  ctx.canvas.height = window.innerHeight;
 		  for(i = 19; i <88+20;i++){
-		    let winUnit = window.innerWidth/89
+		    var winUnit = window.innerWidth/89
 		      if(i % 12 === 0 || i % 12 === 2 || i % 12 === 3 || i % 12 === 5 || i % 12 === 7 || i % 12 === 9 || i % 12 === 10){
 		        ctx.fillStyle = "rgb(" + transparency[i-19] + ",0,0)"
 		        ctx.fillRect(winUnit*i-19*winUnit,window.innerHeight-100, window.innerWidth/8, 100);
@@ -60,9 +60,15 @@ socket.on('connect', function(data) {
 		  //...drawing code...
 		}
 		function drawBars(){
+			for(i=0;i<88;i++){
+			    ctx.fillStyle = "rgb(255,120,0)";
+			    let barHeight = live[i]/largest * (window.innerHeight-100)
+			    ctx.fillRect(19*i,window.innerHeight-100,window.innerWidth/88, -barHeight*5)
+		}
 
 }
 		drawKeys();
+		drawBars();
     })
 });
 //requestAnimationFrame(draw)
