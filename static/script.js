@@ -7,6 +7,10 @@ function Note(data) {
   this.height = 0;
 }
 document.getElementById("set").onclick = function (){
+	pixels = []
+	extra = []
+	if(!isNaN(Number(document.getElementById("value").value))){
+		rt = false
 	function note(data,me,next){
   //draw()
   let dex = -1
@@ -27,7 +31,9 @@ document.getElementById("set").onclick = function (){
 console.log(data[next][3]-data[me][3])
     
 }
+if(!rt){
 setTimeout(function(){note(data,me+1,next+1)},data[next][3]-data[me][3]);
+}
 }
 $.getJSON("http://172.20.10.3:3000/sessions/midi-"+(Number(document.getElementById("value").value)-1).toString()+".json",function(data){
 for(i = data.length - 1;i > 0;i--){
@@ -37,7 +43,11 @@ for(i = data.length - 1;i > 0;i--){
 	  note(data,0,1)
 	
 	})
-
+	} else{
+		if(document.getElementById("value").value === "live"){
+			rt = true;
+		}
+	}
 }
 let rt = false;
 var socket = io.connect('http://172.20.10.3:3000/');

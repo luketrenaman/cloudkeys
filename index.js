@@ -62,6 +62,8 @@ let ejs = require('ejs');
 var path = require("path");
 var app = express();
 app.use(express.static('static'))
+app.use(express.static('landing_page'))
+
 
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
@@ -69,7 +71,7 @@ var io = require('socket.io')(server);
 var clients = []
 app.set('view engine', 'ejs')
 app.get('/', function(req, res, next) {
-    res.sendFile(__dirname + '/static/index.html');
+    res.sendFile(__dirname + '/landing_page/index.html');
 });
 app.get('/data.json', function(req, res, next) {
     res.sendFile(__dirname + '/static/anal.json');

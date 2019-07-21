@@ -10,7 +10,7 @@
 		<% for(var i=1; i<= number; i++) {%>
 		    <option value=<%= i - 1 %>>Session <%= i %></option>
 		<% } %>
-                    <option value="live">Realtime</option>
+                    <option value="live" selected>Realtime</option>
 	    </select>
 	    <button onClick="displaySess(document.getElementById('selectSess').value)">Submit</button>
       	<canvas id="canvas"></canvas>   
