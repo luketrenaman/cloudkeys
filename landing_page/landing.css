@@ -2,13 +2,14 @@
 .header{
     background:url(background.jpg),black;
     color:white;
-    padding:150px 0px;
+    padding:250px 0px;
     text-align:center;
     background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
 }
+
 
 .navbar-logo{
     height:40px;
@@ -17,4 +18,50 @@
 /*    border: solid #d1d1d1 1px;*/
 /*    border-radius: 5px;*/
     padding:3px;
+}
+
+.card-text{
+  font-size:1.4em;
+}
+
+.learning {
+   height: 110vh;
+   background-color:#dd8500;
+   padding:50px;
+}
+
+.learning-title {
+  font-size:3em;
+  color:#ffe5bd;
+  text-align:center
+}
+
+.streaming {
+  background-color:#d1003b;  
+  height: 110vh;
+  padding:50px;
+}
+
+.streaming-title{
+  font-size:3em;
+  color:#fdb1b7;
+  text-align:center
+}
+
+.recording {
+  height: 110vh;
+  background-color:#5b00d1;
+  padding:50px;
+}
+
+.recording-title {
+  font-size:3em;
+  color:#eee0ff;
+  text-align:center;
+}
+
+.calltoaction {
+  background-color: white;
+  height: 50vh;
+  padding-top:10vh;
 }
