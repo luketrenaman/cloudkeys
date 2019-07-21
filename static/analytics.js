@@ -1,6 +1,6 @@
 // PROCESS:
 // access and populate dropdown
-// dropdown will be populated by a list of anal files
+// dropdown will be populated by a list of analyze files
 // button clears the canvas and draws the stats
 // one of the sessions will be realtime which ignores the existence of other sessions
 // stats from the last server restart
@@ -83,7 +83,7 @@ function displaySess(x) {
 		loop = false;
 		var tempKeys;
 		ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-		$.getJSON("http://172.20.10.3:3000/sessions/anal-" + x + ".json", function(data) {
+		$.getJSON("http://172.20.10.3:3000/sessions/analyze-" + x + ".json", function(data) {
 			tempKeys = data
 			// make it brightness scaled
 			var realBright = baseTrans;

@@ -8,12 +8,12 @@ num = fs.readdirSync("static/sessions/",[]).length / 2;
 console.log(num);
 
 var data = [];
-var anal = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+var analyze = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 function poll() {
     fs.writeFileSync("static/sessions/midi-"+num+".json", JSON.stringify(data))
-    fs.writeFileSync("static/sessions/anal-"+num+".json",JSON.stringify(anal))
+    fs.writeFileSync("static/sessions/analyze-"+num+".json",JSON.stringify(analyze))
     ts = JSON.parse(fs.readFileSync("static/sessions/midi-"+num+".json"))
-    anal = JSON.parse(fs.readFileSync("static/sessions/anal-"+num+".json"));
+    analyze = JSON.parse(fs.readFileSync("static/sessions/analyze-"+num+".json"));
     if (input.getPortCount() < 2) {
         //Set to false so that when the port count reaches 2, the else condition will not open the port multiple times
         if (enabled) {
@@ -33,7 +33,7 @@ function poll() {
                 //calculations
 		if (message[2] > 0){
 		var keyVal = message[1] - 21;
-		anal[keyVal]++;
+		analyze[keyVal]++;
 		}
 		console.log(message);
                 clients.forEach(function(client) {
@@ -72,9 +72,6 @@ var clients = []
 app.set('view engine', 'ejs')
 app.get('/', function(req, res, next) {
     res.sendFile(__dirname + '/landing_page/index.html');
-});
-app.get('/data.json', function(req, res, next) {
-    res.sendFile(__dirname + '/static/anal.json');
 });
 app.get('/analytics', function(req, res) {
     res.render("analytics"), {
