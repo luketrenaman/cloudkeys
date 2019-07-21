@@ -3,14 +3,17 @@ var fs = require("fs");
 var clients = [];
 var enabled = false;
 var input = new midi.input();
-var data = JSON.parse(fs.readFileSync("midi2.json"));
-var anal = JSON.parse(fs.readFileSync("static/anal.json"));
+var num;
+num = fs.readdirSync("static/sessions/",[]).length / 2; 
+console.log(num);
 
+var data = [];
+var anal = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 function poll() {
-    fs.writeFileSync("static/midi2.json", JSON.stringify(data))
-    fs.writeFileSync("static/anal.json",JSON.stringify(anal))
-    data = JSON.parse(fs.readFileSync("midi2.json"))
-    anal = JSON.parse(fs.readFileSync("static/anal.json"));
+    fs.writeFileSync("static/sessions/midi-"+num+".json", JSON.stringify(data))
+    fs.writeFileSync("static/sessions/anal-"+num+".json",JSON.stringify(anal))
+    ts = JSON.parse(fs.readFileSync("static/sessions/midi-"+num+".json"))
+    anal = JSON.parse(fs.readFileSync("static/sessions/anal-"+num+".json"));
     if (input.getPortCount() < 2) {
         //Set to false so that when the port count reaches 2, the else condition will not open the port multiple times
         if (enabled) {
@@ -54,29 +57,41 @@ poll()
 
 
 express = require('express');
-
-
+let ejs = require('ejs');
+	number = num;
+var path = require("path");
 var app = express();
+app.use(express.static('static'))
+
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 //app.use(express.static(__dirname + '/tonejs-instruments'));
 var clients = []
+app.set('view engine', 'ejs')
 app.get('/', function(req, res, next) {
     res.sendFile(__dirname + '/static/index.html');
 });
 app.get('/data.json', function(req, res, next) {
     res.sendFile(__dirname + '/static/anal.json');
 });
-app.get('/analytics', function(req, res, next) {
-    res.sendFile(__dirname + '/static/analytics.html');
+app.get('/analytics', function(req, res) {
+    res.render("analytics"), {
+	number: num,
+}
 });
-app.get('/realtime', function(req, res, next) {
-    res.sendFile(__dirname + '/static/realtime.html');
+
+//ejs.renderFile("static/analytics.html", {number: number},
+//	{delimiter: '%'}
+//);
+
+app.get('/realtime', function(req, res) {
+    res.render("realtime"),{
+	number:num
+};
 });
 io.on('connection', function(client) {
     client.on('join', function(data) {
 
-app.use(express.static('static'))
         console.log(data);
         clients.push(client);
         client.emit('messages', 'Hello from server');
@@ -84,3 +99,4 @@ app.use(express.static('static'))
     });
 });
 server.listen(3000);
+

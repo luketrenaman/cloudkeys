@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+    <head>
+	    <style>
+#dropdown{
+	width:50px;
+	height:50px;
+	position:absolute;
+	display:inline;
+	border:2px solid #191c1f;
+	border-radius:10px;
+	padding:5px;
+	margin:5px;
+	background:white;
+	cursor:pointer;
+}
+#value{
+	top:9px;
+	left:68px;
+	display:none;
+	width:0px;
+	position:absolute;
+	height:45px;
+	border:2px solid white;
+	font-size:20px;
+	text-align:center
+}
+				#display{background:white;position:absolute;color:#111;height:45px;font-size:12px;line-height:0}
+	    </style>
+    </head>
+    <body>
+        </form>
+        <link rel = "stylesheet" type = "text/css" href = "stylesheet.css"/>
+        <script   src="https://code.jquery.com/jquery-3.4.1.min.js"   integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="   crossorigin="anonymous"></script> 
+	<script src="https://cdn.socket.io/socket.io-1.7.2.js"></script>
+	<input id = "value" type = "number"></input>
+	<div id = "display">
+		<p><b>Please enter a value from 1-<%= number %> to pick the session
+		<p>Start time - End Time</p>
+		<p>Total notes:</p>
+	</div>	
+<img id = "dropdown" src = "cloud keys.png"/> <select id="selectsess">
+		<% for(var i=1; i<= number; i++) {%>
+		    <option value=<%= i %>>session <%= i %></option>
+		<% } %>
+	    </select>
+	    <script>
+		    let flag = true;
+		    $("#dropdown").click(function(event){
+			event.stopPropagation()
+			    if(flag){
+			    $("#value").show()
+				    $("#value").animate( 
+					  {
+					    width:"+=50px"
+					    },200)
+				} else{
+				$("#value").animate({width:"-=50px"},200,function(){$("#value").hide()})
+				}
+			    flag = !flag
+		    })
+	    </script>
+    <canvas id = "canvas"></canvas>
+    <script src = "script.js"></script>
+    </body>
+</html>

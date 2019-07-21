@@ -1,11 +1,42 @@
+let pixels = []
+let extra = []
+
 function Note(data) {
   this.data = data;
   this.y = 0;
   this.height = 0;
 }
+/*function note(data,me,next){
+  //draw()
+  let dex = -1
+	console.log(data[me][0])
+  if(data[me][0] != 176){
+    if(!pixels.some(function(note,index){
+      dex = index;
+      return note.data[1] === data[me][1];
+    })){
+      console.log("nosplice")
+      pixels.push(new Note(data[me]));
+      //console.log(data);
+    } else{
+      console.log("splice")
+      extra.push(pixels[dex])
+      pixels.splice(dex,1);
+    }
+console.log(data[next][3]-data[me][3])
+    
+}
+setTimeout(function(){note(data,me+1,next+1)},data[next][3]-data[me][3]);
+}
+$.getJSON("http://172.20.10.3:3000/sessions/midi-3.json",function(data){
+for(i = data.length - 1;i > 0;i--){
+    data[i][3] -= data[0][3]
+}
+	console.log(data);
+  note(data,0,1)
+
+})*/
 var socket = io.connect('http://172.20.10.3:3000/');
-let pixels = []
-let extra = []
 lastTime = (new Date()).getTime()
 socket.on('connect', function(data) {
         socket.emit('join', 'Hello World from client');
@@ -29,6 +60,7 @@ socket.on('connect', function(data) {
     })
     });
     //0 2 3 5 8 10 11
+    
 function draw() {
   let winUnit = window.innerWidth/89
     var canvas = document.getElementById("canvas");
@@ -53,6 +85,7 @@ function draw() {
   }
   //...drawing code...
   ctx.fillStyle = "#ff0000"
+  i % 12 === 0 || i % 12 === 2 || i % 12 === 3 || i % 12 === 5 || i % 12 === 7 || i % 12 === 9 || i % 12 === 10
   currentTime = (new Date()).getTime();
   delta = (currentTime - lastTime) / 5;
   pixels.forEach(function(note,index){

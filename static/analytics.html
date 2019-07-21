@@ -4,9 +4,20 @@
 	<script src="https://cdn.socket.io/socket.io-1.7.2.js"></script>
     <link rel="stylesheet" type="text/css" href="analytics.css">
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"   integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="   crossorigin="anonymous"></script> 
-
-    </head>
+        <script>
+        var clientNumber = <%= number %>
+	var select = document.getElementById()
+</script>    
+</head>
     <body>
+	<form id="dropdown">
+	    <select id="selectSess">
+		<% for(i = 0; i< number; i++) {%>
+		    <option value = <%= i %>>session <%=i %></option> 
+		<% } %>
+	    </select>
+	    <button onClick="displaySess()">
+	</form>
       	<canvas id="canvas"></canvas>   
 	<script src="analytics.js"></script>
     
