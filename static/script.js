@@ -6,7 +6,8 @@ function Note(data) {
   this.y = 0;
   this.height = 0;
 }
-/*function note(data,me,next){
+document.getElementById("set").onclick = function (){
+	function note(data,me,next){
   //draw()
   let dex = -1
 	console.log(data[me][0])
@@ -28,19 +29,23 @@ console.log(data[next][3]-data[me][3])
 }
 setTimeout(function(){note(data,me+1,next+1)},data[next][3]-data[me][3]);
 }
-$.getJSON("http://172.20.10.3:3000/sessions/midi-3.json",function(data){
+$.getJSON("http://172.20.10.3:3000/sessions/midi-"+(Number(document.getElementById("value").value)-1).toString()+".json",function(data){
 for(i = data.length - 1;i > 0;i--){
     data[i][3] -= data[0][3]
 }
 	console.log(data);
-  note(data,0,1)
+	  note(data,0,1)
+	
+	})
 
-})*/
+}
+let rt = false;
 var socket = io.connect('http://172.20.10.3:3000/');
 lastTime = (new Date()).getTime()
 socket.on('connect', function(data) {
         socket.emit('join', 'Hello World from client');
         socket.on('messages',function(data){
+		if(rt){
             //draw()
             let dex = -1
             if(data[0] != 176){
@@ -57,6 +62,7 @@ socket.on('connect', function(data) {
                 pixels.splice(dex,1);
               }
           }
+	}
     })
     });
     //0 2 3 5 8 10 11
