@@ -24,8 +24,8 @@ function drawKeys(arrName) {
 			ctx.fillStyle = "rgb(" + arrName[i - 19] + ",0,0)"
 			ctx.fillRect(winUnit * i - 19 * winUnit, window.innerHeight - 100, window.innerWidth / 88, 100);
 		} else {
-			ctx.strokeStyle = "#FFFFFFF"
-			ctx.strokeRect(winUnit * i - 19 * winUnit, window.innerHeight - 100, window.innerWidth / 88, 50);
+			ctx.lineWidth = 1;
+
 			ctx.fillStyle = "rgb(" + arrName[i - 19] + ",0,0)"
 			ctx.fillRect(winUnit * i - 19 * winUnit, window.innerHeight - 100, window.innerWidth / 88, 50);
 			ctx.stroke();
@@ -33,6 +33,9 @@ function drawKeys(arrName) {
 			ctx.strokeRect(winUnit * i - 19 * winUnit, window.innerHeight - 50, window.innerWidth / 88, 50);
 			ctx.fillStyle = "#000000"
 			ctx.fillRect(winUnit * i - 19 * winUnit, window.innerHeight - 50, window.innerWidth / 88, 50);
+			ctx.strokeStyle = "#FFFFFFF"
+			ctx.lineWidth = 5;
+			ctx.strokeRect(winUnit * i - 19 * winUnit, window.innerHeight - 100, window.innerWidth / 88, 50);
 		}
 		//x,y,width,heigh
 		ctx.stroke();
@@ -48,7 +51,7 @@ function drawBars(arrName, biggest) {
 		ctx.fillRect((window.innerWidth / 89) * i, window.innerHeight - 100, window.innerWidth / 88, -barHeight/2)
 	}
 }
-var socket = io.connect('http://172.20.10.3:3000/');
+var socket = io.connect('http://localhost:3000/');
 socket.on('connect', function(data) {
 	socket.emit('join', 'Hello World from client');
 	socket.on('messages', function(data) {
@@ -83,7 +86,7 @@ function displaySess(x) {
 		loop = false;
 		var tempKeys;
 		ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-		$.getJSON("http://172.20.10.3:3000/sessions/analyze-" + x + ".json", function(data) {
+		$.getJSON("http://localhost:3000/sessions/analyze-" + x + ".json", function(data) {
 			tempKeys = data
 			// make it brightness scaled
 			var realBright = baseTrans;

@@ -43,7 +43,7 @@ document.getElementById("set").onclick = function() {
 				}, data[next][3] - data[me][3]);
 			}
 		}
-		$.getJSON("http://172.20.10.3:3000/sessions/midi-" + (Number(document.getElementById("value").value) - 1).toString() + ".json", function(data) {
+		$.getJSON("http://localhost:3000/sessions/midi-" + (Number(document.getElementById("value").value) - 1).toString() + ".json", function(data) {
 			for (i = data.length - 1; i > 0; i--) {
 				data[i][3] -= data[0][3]
 			}
@@ -57,7 +57,7 @@ document.getElementById("set").onclick = function() {
 	}
 }
 let rt = true;
-var socket = io.connect('http://172.20.10.3:3000/');
+var socket = io.connect('http://localhost:3000/');
 lastTime = (new Date()).getTime()
 socket.on('connect', function(data) {
 	socket.emit('join', 'Hello World from client');

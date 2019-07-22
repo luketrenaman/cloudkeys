@@ -20,7 +20,7 @@ let flag = true;
 			    flag = !flag
 		    })
 $("#value").on("change keyup",function(){
-	$.getJSON("http://172.20.10.3:3000/sessions/midi-" + (Number($("#value").val()) - 1).toString() + ".json", function(data) {
+	$.getJSON("http://localhost:3000/sessions/midi-" + (Number($("#value").val()) - 1).toString() + ".json", function(data) {
 	if(data[0] != undefined){
 	let start = new Date(data[0][3])
 	let end = new Date(data[data.length-1][3])
